@@ -11,6 +11,7 @@
  * for library code that uses assert(); internally we always use ASSERT, which
  * does this for all platforms, not just glibc. */
 
+#ifdef __GLIBC__
 extern "C" void __assert_fail( const char *assertion, const char *file, unsigned int line, const char *function ) throw()
 {
 	const RString error = ssprintf( "Assertion failure: %s: %s", function, assertion );
@@ -27,6 +28,7 @@ extern "C" void __assert_fail( const char *assertion, const char *file, unsigned
 	_exit(0);
 #endif
 }
+#endif
 
 
 extern "C" void __assert_perror_fail( int errnum, const char *file, unsigned int line, const char *function ) throw()
